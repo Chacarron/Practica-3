@@ -1,5 +1,4 @@
 /*
-AS
   En el anterior prototipo (06-player), el objeto Game permite
   gestionar una colección de tableros (boards). Los tres campos de
   estrellas, la pantalla de inicio, y el sprite de la nave del
