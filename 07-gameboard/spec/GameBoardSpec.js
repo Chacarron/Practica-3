@@ -74,28 +74,25 @@ describe("Clase GameBoard", function(){
 
 	it("GameBoard.add()", function(){
 		var board = new GameBoard();
-		// Comprobamos que draw llama a GameBoard.add con los
-		// parametros adecuados
-
-		spyOn(board, "add");        
-
-		var obj = board.add(new PlayerShip());
-        	expect(board.objects[0]).toEqual(obj);
+   
+		var foo = "foo";
+		board.add(foo);
+        	expect(board.objects[0]).toEqual("foo");
  
     	});
 
 	it("GameBoard.remove()", function(){
 		var board = new GameBoard();
-		// Comprobamos que draw llama a GameBoard.remove con los
-		// parametros adecuados
 
-		spyOn(board, "remove");        
- 
-		var obj = board.add(new PlayerShip());
-		var removed = [];
-		removed = board.resetRemoved();
-		board.remove(obj);
+		var foo = board.add("foo");
+		expect(board.objects.length).toEqual(1);
+
+		board.resetRemoved();
+		board.remove(foo);
 		board.finalizeRemoved();
+
+		expect(board.objects.length).toEqual(0);
+		expect(board.objects[0]).toEqual(undefined);
     	});
 
 	
