@@ -95,6 +95,24 @@ describe("Clase GameBoard", function(){
 		expect(board.objects[0]).toEqual(undefined);
     	});
 
+	it("step()", function(){
+		var board = new GameBoard();
+		var dt = 0.5;
+		spyOn(board,"iterate");
+		board.step(dt);
+		expect(board.iterate).toHaveBeenCalledWith("step",dt);
+		
+    	});
+
+	it("draw()", function(){
+		var board = new GameBoard();
+		var ctx = "dummy";
+		spyOn(board,"iterate");
+		board.draw(ctx);
+		expect(board.iterate).toHaveBeenCalledWith("draw",ctx);
+		
+    	});
+
 	
 
 });
