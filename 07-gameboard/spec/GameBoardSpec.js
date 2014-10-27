@@ -57,30 +57,50 @@
 */
 
 
-
-
 describe("Clase GameBoard", function(){
-	var canvas, ctx, board;
+	var canvas, ctx;
 
-    	beforeEach(function(){
-		loadFixtures('index.html');
+        beforeEach(function(){
+	    oldGame = Game;
+	    loadFixtures('index.html');
 
-		canvas = $('#game')[0];
-		expect(canvas).toExist();
+	    canvas = $('#game')[0];
+	    expect(canvas).toExist();
 
-		ctx = canvas.getContext('2d');
-		expect(ctx).toBeDefined();
-
-		board = new GameBoard();
-		
+	    ctx = canvas.getContext('2d');
+	    expect(ctx).toBeDefined();
+	
     	});
 
-	it("Collection.add()", function(){
+	it("GameBoard.add()", function(){
+		var board = new GameBoard();
+		// Comprobamos que draw llama a GameBoard.add con los
+		// parametros adecuados
 
-		spyOn(GameBoard, "add");
+		spyOn(board, "add");        
 
-		expect(Add).toBeDefined();
+		var obj = board.add(new PlayerShip());
+        	expect(board.objects[0]).toEqual(obj);
+ 
     	});
+
+	it("GameBoard.remove()", function(){
+		var board = new GameBoard();
+		// Comprobamos que draw llama a GameBoard.remove con los
+		// parametros adecuados
+
+		spyOn(board, "remove");        
+ 
+		var obj = board.add(new PlayerShip());
+		var removed = [];
+		removed = board.resetRemoved();
+		board.remove(obj);
+		board.finalizeRemoved();
+    	});
+
+	
 
 });
 
+
+   
