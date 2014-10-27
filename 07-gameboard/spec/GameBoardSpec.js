@@ -59,7 +59,7 @@
 
 
 
-describe("GameBoard", function(){
+describe("Clase GameBoard", function(){
 	var canvas, ctx, board;
 
     	beforeEach(function(){
@@ -72,6 +72,15 @@ describe("GameBoard", function(){
 		expect(ctx).toBeDefined();
 
 		board = new GameBoard();
+		
     	});
+
+	it("Collection.add()", function(){
+
+		spyOn(GameBoard, "add");
+
+		expect(Add).toBeDefined();
+    	});
+
 });
 
