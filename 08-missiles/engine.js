@@ -203,7 +203,7 @@ var GameBoard = function() {
     }
 
 
-   // Iterador que aplica el método funcName a todos los
+    // Iterador que aplica el método funcName a todos los
     // objetos de objects
     this.iterate = function(funcName) {
 	// Convertimos en un array args (1..)
