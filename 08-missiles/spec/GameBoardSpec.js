@@ -1,5 +1,4 @@
 /*
-
   En el anterior prototipo (06-player), el objeto Game permite
   gestionar una colección de tableros (boards). Los tres campos de
   estrellas, la pantalla de inicio, y el sprite de la nave del
@@ -56,3 +55,123 @@
     colisionado con objetos de cierto tipo, no con todos los objetos.
 
 */
+
+
+describe("Clase GameBoard", function(){
+	var canvas, ctx;
+
+        beforeEach(function(){
+	    oldGame = Game;
+	    loadFixtures('index.html');
+
+	    canvas = $('#game')[0];
+	    expect(canvas).toExist();
+
+	    ctx = canvas.getContext('2d');
+	    expect(ctx).toBeDefined();
+	
+    	});
+
+	it("GameBoard.add()", function(){
+		var board = new GameBoard();
+   
+		var foo = "foo";
+		board.add(foo);
+        	expect(board.objects[0]).toEqual("foo");
+ 
+    	});
+
+	it("GameBoard.remove()", function(){
+		var board = new GameBoard();
+
+		var foo = board.add("foo");
+		expect(board.objects.length).toEqual(1);
+
+		board.resetRemoved();
+		board.remove(foo);
+		board.finalizeRemoved();
+
+		expect(board.objects.length).toEqual(0);
+		expect(board.objects[0]).toEqual(undefined);
+    	});
+
+	it("step()", function(){
+		var board = new GameBoard();
+		var dt = 0.5;
+		spyOn(board,"iterate");
+		board.step(dt);
+		expect(board.iterate).toHaveBeenCalledWith("step",dt);
+		
+    	});
+
+	it("draw()", function(){
+		var board = new GameBoard();
+		var ctx = "dummy";
+		spyOn(board,"iterate");
+		board.draw(ctx);
+		expect(board.iterate).toHaveBeenCalledWith("draw",ctx);
+		
+    	});
+
+
+	it("iterate()", function(){
+		var board = new GameBoard();
+		var foo = {func : function(){}};
+		board.add(foo);
+		spyOn(foo,"func"); 
+		board.iterate("func");
+	
+		expect(foo.func).toHaveBeenCalled();
+		
+    	});
+
+	it("detect()", function(){
+		var board = new GameBoard();
+		var o1 = "o1";
+		var o2 = "o2";
+		var func = function(obj){
+			obj == "Soy " + obj;
+		}
+		board.add(o1);
+		board.add(o2);
+
+		spyOn(board,"detect");
+		board.detect(func);
+
+		expect(board.detect).toHaveBeenCalledWith(func);
+		expect(board.detect).toBeTruthy();	
+
+    	});
+
+
+	it("overlap()", function(){
+		var board = new GameBoard();
+		var o1 = {w:1,h:1,x:1,y:1};
+		var o2 = {w:1,h:2,x:1,y:1};
+		var o3 = {w:1,h:2,x:3,y:4};
+		expect(board.overlap(o1,o2)).toBeTruthy();
+		expect(board.overlap(o1,o3)).toBeFalsy();
+    	});
+
+		
+	it("collide()", function(){
+		var board = new GameBoard();
+		var o1 = {w:1,h:1,x:1,y:1};
+		var o2 = {w:1,h:1,x:1,y:1};
+		var o3 = {w:3,h:3,x:3,y:3};
+
+		board.add(o1);
+		board.add(o2);
+		board.add(o3);
+		expect(board.collide(o1)).toBeTruthy();
+		expect(board.collide(o3)).toBeFalsy();
+
+    	});
+
+	
+	
+
+});
+
+
+   
