@@ -165,7 +165,14 @@ describe("Clase GameBoard", function(){
 		board.add(o3);
 		expect(board.collide(o1)).toBeTruthy();
 		expect(board.collide(o3)).toBeFalsy();
-		
+
+
+		var ps  = new PlayerShip();
+		ps.x = 10;
+		ps.y = 10;
+		ps.h = 10;
+		ps.w = 10;
+		expect(board.collide(ps)).toBeFalsy();
     	});
 
 	
