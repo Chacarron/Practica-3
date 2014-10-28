@@ -113,6 +113,62 @@ describe("Clase GameBoard", function(){
 		
     	});
 
+
+	it("iterate()", function(){
+		var board = new GameBoard();
+		var foo = {func : function(){}};
+		board.add(foo);
+		spyOn(foo,"func"); 
+		board.iterate("func");
+	
+		expect(foo.func).toHaveBeenCalled();
+		
+    	});
+
+	it("detect()", function(){
+		var board = new GameBoard();
+		var o1 = "o1";
+		var o2 = "o2";
+		var func = function(obj){
+			obj == "Soy " + obj;
+		}
+		board.add(o1);
+		board.add(o2);
+
+		spyOn(board,"detect");
+		board.detect(func);
+
+		expect(board.detect).toHaveBeenCalledWith(func);
+		expect(board.detect).toBeTruthy();	
+
+    	});
+
+
+	it("overlap()", function(){
+		var board = new GameBoard();
+		var o1 = {w:1,h:1,x:1,y:1};
+		var o2 = {w:1,h:2,x:1,y:1};
+		var o3 = {w:1,h:2,x:3,y:4};
+		expect(board.overlap(o1,o2)).toBeTruthy();
+		expect(board.overlap(o1,o3)).toBeFalsy();
+    	});
+
+		
+	it("collide()", function(){
+		var board = new GameBoard();
+		var o1 = {w:1,h:1,x:1,y:1};
+		var o2 = {w:1,h:1,x:1,y:1};
+		var o3 = {w:3,h:3,x:3,y:3};
+
+		board.add(o1);
+		board.add(o2);
+		board.add(o3);
+		expect(board.collide(o1)).toBeTruthy();
+		expect(board.collide(o3)).toBeFalsy();
+		
+    	});
+
+	
 	
 
 });
